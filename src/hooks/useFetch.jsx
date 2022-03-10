@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   books: [],
   error: null,
+  success: null,
 };
 
 export const useFetch = (url) => {
@@ -19,7 +20,6 @@ export const useFetch = (url) => {
         .get(replaced)
         .then((response) => {
           dispatch({ type: "FETCH_SUCCESS", payload: response.data.docs });
-          console.log(response.data.docs);
         })
         .catch((error) => {
           dispatch({ type: "FETCH_FAILURE", payload: error });

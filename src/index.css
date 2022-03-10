@@ -97,8 +97,22 @@
 
 .drop-down-text{
   font-size: 0.9rem;
-  font-weight: bold;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.drop-down-text :first-child{
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.drop-down-text :nth-child(2){
+  font-size: 0.8rem;
+  color: black;
+}
+
+.drop-down-list :nth-child(3){
+  font-size: 0.8rem;
+  color: black;
 }

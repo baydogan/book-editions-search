@@ -6,16 +6,16 @@ const Searchsection = () => {
   const [inputs, setInputs] = useInputs({ search: "" });
   const { state } = useFetch(`http://openlibrary.org/search.json?title=${inputs.search}`);
 
-  useEffect(() => {
-    console.log(state);
-  }, [inputs.search]);
+
 
   return (
-    <div className="search-section">
-      <h1>Search Books by Title</h1>
-      <div className="search-section-box">
-        <input type="text" name="search" value={inputs.search} onChange={setInputs} />
-        <button>Search</button>
+    <div>
+      <div className="search-section">
+        <h1>Search Books by Title</h1>
+        <div className="search-section-box">
+          <input type="text" name="search" value={inputs.search} onChange={setInputs} />
+          <button>Search</button>
+        </div>
       </div>
       <div className="drop-down">
         {state.books &&
