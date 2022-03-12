@@ -7,6 +7,5 @@ export const useInputs = (params) => {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   };
 
-  console.log(inputs);
   return [inputs, handleChange];
 };

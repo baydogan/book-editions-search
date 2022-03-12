@@ -9,24 +9,28 @@ const initialState = {
   success: null,
 };
 
-export const useFetch = (url) => {
+export const useFetch = (url, search) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const replaced = url.split(" ").join("+");
+  const fixedSearch = search.split(" ").join("+");
 
   useEffect(() => {
     const delayedFetch = setTimeout(() => {
-      dispatch({ type: "FETCH_START" });
-      axios
-        .get(replaced)
-        .then((response) => {
-          dispatch({ type: "FETCH_SUCCESS", payload: response.data.docs });
-        })
-        .catch((error) => {
-          dispatch({ type: "FETCH_FAILURE", payload: error });
-        });
+      if (fixedSearch.length > 0) {
+        dispatch({ type: "FETCH_START" });
+        axios
+          .get(url + fixedSearch)
+          .then((response) => {
+            dispatch({ type: "FETCH_SUCCESS", payload: response.data.docs });
+            console.log(response.data.docs);
+          })
+          .catch((error) => {
+            dispatch({ type: "FETCH_FAILURE", payload: error });
+          });
+      }
     }, 2000);
     return () => clearTimeout(delayedFetch);
-  }, [url]);
+  }, [fixedSearch]);
+
   return {
     state,
   };

@@ -4,7 +4,7 @@ export const reducer = (state, action) => {
       return { ...state, loading: true, books: [], error: null, success: null };
 
     case "FETCH_SUCCESS":
-      return { ...state, loading: false, books: action.payload, error: null, success: true };
+      return { ...state, loading: false, books: action.payload,  error: null, success: true };
 
     case "FETCH_FAILURE":
       return { ...state, loading: false, books: [], error: action.payload, success: false };
