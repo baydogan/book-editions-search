@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useReducer, useEffect, useState } from "react";
+import { useReducer,} from "react";
 import { reducer } from "../reducer/reducer";
+
 
 const initialState = {
   loading: false,

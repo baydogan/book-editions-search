@@ -4,17 +4,24 @@ import { useEffect } from "react";
 import { useDetailedFetch } from "../hooks/useDetailedFetch";
 import Loader from "../components/Loader";
 import Bookcards from "./BookCards";
+import placeholder from "../assets/img/avatar_book-sm.png";
 
 const Searchsection = () => {
   const [inputs, setInputs] = useInputs({ search: "" });
   const { state } = useFetch("http://openlibrary.org/search.json?title=", inputs.search);
   const { editionsFetch, editionState } = useDetailedFetch();
 
-  useEffect(() => {
-    if (state.loading) {
-      editionState.books = [];
-      console.log("editionstate", editionState);
+  const imagePath = (image) => {
+    //an alternative image path for the book cover
+    if (image) {
+      return `https://covers.openlibrary.org/b/id/${image}-M.jpg`;
+    } else {
+      return placeholder;
     }
+  };
+
+  useEffect(() => {
+    editionState.books = [];
   }, [state]);
 
   useEffect(() => {
@@ -31,13 +38,13 @@ const Searchsection = () => {
         </div>
       </div>
       {state.loading && <Loader />}
-      {state.success && (
+      {!editionState.loading && (
         <div className="drop-down">
           {state.books &&
             state.books.map((book) => (
               <ul className="drop-down-ul" key={book.key}>
                 <li className="drop-down-list" onClick={() => editionsFetch(book)}>
-                  <img src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`} alt="" />
+                  <img src={imagePath(book.cover_i)} alt="" />
                   <div className="drop-down-text">
                     <p>{book.title}</p>
                     <p>{book.author_name}</p>
@@ -49,7 +56,11 @@ const Searchsection = () => {
         </div>
       )}
       {editionState.loading && <Loader />}
-      {editionState.books && editionState.books.map((book) => <Bookcards key={book.key} book={book} />)}
+      {!state.loading && (
+        <div className="book-card-container">
+          {editionState.books && editionState.books.map((book) => <Bookcards key={book.key} book={book} />)}
+        </div>
+      )}
     </div>
   );
 };

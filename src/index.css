@@ -105,6 +105,14 @@
   color: black;
 }
 
+.book-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
 .book-card {
   width: 100%;
   max-width: 450px;
